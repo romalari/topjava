@@ -42,9 +42,7 @@ public class UserMealsUtil {
                 excess = true;
             }
 
-            LocalTime mealTime = meal.getDateTime().toLocalTime();
-            if (mealTime.isAfter(startTime.minusSeconds(1))
-                    && mealTime.isBefore(endTime.plusSeconds(1))) {
+            if (TimeUtil.isBetweenHalfOpen(meal.getDateTime().toLocalTime(), startTime, endTime)) {
                 result.add(new UserMealWithExcess(meal, excess));
             }
         }
@@ -63,11 +61,8 @@ public class UserMealsUtil {
                         excess.set(true);
                     }
                     return new UserMealWithExcess(meal, excess.get());
-                    })
-                .filter(meal -> {
-                    LocalTime mealTime = meal.getDateTime().toLocalTime();
-                    return mealTime.isAfter(startTime) && mealTime.isBefore(endTime);
                 })
+                .filter(meal -> TimeUtil.isBetweenHalfOpen(meal.getDateTime().toLocalTime(), startTime, endTime))
                 .collect(Collectors.toList());
     }
 }
