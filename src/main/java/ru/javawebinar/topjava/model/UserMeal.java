@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.model;
 
-import java.time.LocalDateTime;
+import java.time.*;
 
 public class UserMeal {
     private final LocalDateTime dateTime;
@@ -26,4 +26,8 @@ public class UserMeal {
     public int getCalories() {
         return calories;
     }
+
+    public LocalDate getDate() { return dateTime.toLocalDate();}
+
+    public LocalTime getTime() { return dateTime.toLocalTime();}
 }
