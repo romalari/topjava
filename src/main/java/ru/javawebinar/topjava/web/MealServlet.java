@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.web;
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.MealsUtil;
+import ru.javawebinar.topjava.util.TimeUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -51,13 +52,15 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        request.setCharacterEncoding("UTF-8");
         log.debug("do post meals");
 
+        LocalDateTime dateTime = TimeUtil.parseDateTime(request.getParameter("dateTime"));
         String id = request.getParameter("id");
         String description = request.getParameter("description");
         int calories = Integer.parseInt(request.getParameter("calories"));
 
-        Meal meal = new Meal(LocalDateTime.now(), description, calories);
+        Meal meal = new Meal(dateTime, description, calories);
         if (id != null) {
             meal.setId(Integer.parseInt(id));
         }

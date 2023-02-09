@@ -22,7 +22,9 @@ public class MealTo {
     }
 
     public LocalDateTime getDateTime() {
-        return dateTime;
+        return dateTime
+                .withSecond(0)
+                .withNano(0);
     }
 
     @Override
